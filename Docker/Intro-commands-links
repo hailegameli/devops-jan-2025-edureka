@@ -32,6 +32,9 @@ docker pull tomcat
 
 
 docker run -itd -p 82:80 httpd --> to create container from httpd image
+
+
+
 docker ps
 docker exec -it <container-id> /bin/bash --> to inside the container
 
@@ -53,3 +56,12 @@ Dockerfile --> is used to create the custom image
 1. create a container, customize it --> docker commit <container-id> new-image
 2. Dockerfile --> docker build <dockerfile-location> -t new-image
 docker run -itd <container-image>
+
+
+
+Docker-compose installation
+$ wget https://github.com/docker/compose/releases/download/v2.24.1/docker-compose-linux-x86_64
+$ chmod +x docker-compose-linux-x86_64
+$ sudo mv docker-compose-linux-x86_64 /usr/bin/docker-compose
+$ docker-compose --version
+Docker Compose version v2.24.1
