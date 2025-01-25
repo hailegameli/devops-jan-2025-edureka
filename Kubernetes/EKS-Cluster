@@ -1,7 +1,7 @@
 AWS EKS Cluster
 
 3 CLIs
-1. aws cli --> command line interface for Cloud
+1. aws cli --> command line interface for aws Cloud
 2. kubectl --> command line interface for K8s, in general
 3. EKSCTL --> command line interface for AWS EKS
 
