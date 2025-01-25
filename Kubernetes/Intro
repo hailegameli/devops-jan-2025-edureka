@@ -1,0 +1,14 @@
+Container Engine --> Docker, Rocket, Podman, Containerd
+
+Container Orchestration Engine --> Docker Swarm, Kubernetes (K8s)
+
+2015 --> Docker Inc --> Docker
+
+Google --> Borg --> since 2005 --> Kubernetes --> containerd
+
+CNCF
+
+Kubernetes Architecture
+K8s Objects/ Resources
+K8s setup --> managed services --> AWS --> EKS
+K8s manifest files --> yaml
