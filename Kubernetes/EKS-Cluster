@@ -2,8 +2,13 @@ AWS EKS Cluster
 
 3 CLIs
 1. aws cli --> command line interface for aws Cloud
+https://docs.aws.amazon.com/cli/latest/ --> https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
 2. kubectl --> command line interface for K8s, in general
+https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
 3. EKSCTL --> command line interface for AWS EKS
+https://eksctl.io/getting-started/
 
 
 cloudshell
