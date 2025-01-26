@@ -8,7 +8,7 @@ https://docs.aws.amazon.com/cli/latest/ --> https://docs.aws.amazon.com/cli/late
 https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 
 3. EKSCTL --> command line interface for AWS EKS
-https://eksctl.io/getting-started/
+https://eksctl.io/installation/
 
 
 cloudshell
