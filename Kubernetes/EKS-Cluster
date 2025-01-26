@@ -35,3 +35,23 @@ eksctl delete nodegroup --cluster=eksdemo1 --name=eksdemo1-ng
 eksctl delete cluster eksdemo1
 
 
+K8s commands
+------------
+
+kubectl get namespaces
+kubectl get ns
+
+kubectl get all -n kube-system
+
+kubectl get nodes -o wide
+kubectl get pods -o wide
+
+kubectl apply -f loadbalancer-service.yaml 
+
+kubectl delete pod <pod-name>
+
+kubectl exec -it <pod-name> -- bin/sh
+
+
+
+
