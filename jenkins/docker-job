@@ -11,3 +11,6 @@ If you need to run commands/scripts as root user-->
 
 visudo
 jenkins ALL=(ALL) NOPASSWD: ALL    --> Add this line to sudoers
+
+
+http://13.126.63.68:8080/github-webhook/
