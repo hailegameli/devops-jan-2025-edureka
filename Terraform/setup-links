@@ -1,0 +1,9 @@
+Installation
+https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_windows_386.zip
+
+Terraform Commands:
+
+terraform init
+terraform plan
+terraform apply
+terraform destroy
