@@ -4,8 +4,20 @@ AWS EKS Cluster
 1. aws cli --> command line interface for aws Cloud
 https://docs.aws.amazon.com/cli/latest/ --> https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+apt install unzip -y
+unzip awscliv2.zip
+sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+
+aws configure --> get the details from IAM user
+
+
 2. kubectl --> command line interface for K8s, in general
 https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin
 
 3. EKSCTL --> command line interface for AWS EKS
 https://eksctl.io/installation/
