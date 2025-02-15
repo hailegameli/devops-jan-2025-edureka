@@ -1,1 +1,18 @@
+Continuous Monitoring --> why?
 
+uptime
+health check
+performance metrics --> response time (latency), errors/exceptions, resource utilisation
+troubleshoot applications
+
+role of a devops engineer
+1. perform POC
+2. setup/install monitoring tools
+3. create dashboards for various metrics --> cpu, memory, disk iops, status code, ..
+4. setup alerts
+
+Prometheus & Grafana
+
+1. Database --> Prometheus
+2. visualization tool --> Grafana
+3. Agents --> node exporter
