@@ -1,5 +1,8 @@
 EC2 - t2.medium
 
+https://prometheus.io/docs/introduction/overview/
+https://prometheus.io/download/
+
 Prometheus:
 
 root@ip-172-31-32-167:~/prometheus-2.45.1.linux-amd64# history
@@ -71,6 +74,8 @@ Grafana:
    68  systemctl status grafana-server
    69  lsof -i -P -n | grep LISTEN
    70  history
+
+https://grafana.com/grafana/dashboards/1860-node-exporter-full/
 
 
 [Unit]
