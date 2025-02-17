@@ -1,0 +1,46 @@
+Helm Installation
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+
+  helm version
+
+create EKS cluster
+
+Install Promeethus & Grafana -->
+  
+helm repo add stable https://charts.helm.sh/stable
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+kubectl create namespace prometheus
+
+helm install stable prometheus-community/kube-prometheus-stack -n prometheus
+
+edit service: ClusterIP --> LoadBalancer
+kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
+
+   81  kubectl get svc -n prometheus
+
+edit service: ClusterIP --> LoadBalancer
+   82  kubectl edit svc stable-grafana -n prometheus
+
+
+To get Grafana Password, "admin" is the username
+   87  kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+Grafana Dashboards: 15760, 18283, 315, 6417
+
+Revert LoadBalancer --> ClusterIP
+
+   91  kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
+   92  kubectl edit svc stable-grafana -n prometheus
+
+   94  helm delete stable prometheus-community/kube-prometheus-stack -n prometheus
+
+   96  kubectl delete ns prometheus
+
+
+
+
+  
+
