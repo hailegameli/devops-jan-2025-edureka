@@ -6,3 +6,18 @@ Micro-Services and Docker
 --> monolithic vs microservices?
 --> docker run
 --> Have few examples of Dockerfile and docker-compose
+--> https://www.interviewbit.com/docker-interview-questions/
+
+Kubernetes
+----------
+Architecture
+various services
+Ingress Vs LoadBalancer Vs API Gateway
+--> https://www.geeksforgeeks.org/kubernetes-interview-questions/
+
+Jenkins --> CI/CD
+-------
+--> maven
+--> jenkinsfile
+--> GitOps --> Kubernetes Cluster
+  argoCD is one of the gitOps tool --> https://argo-cd.readthedocs.io/en/stable/getting_started/
