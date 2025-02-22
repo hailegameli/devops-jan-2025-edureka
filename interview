@@ -1,0 +1,55 @@
+GIT
+--> make your own notes
+--> https://www.interviewbit.com/git-interview-questions/
+
+Micro-Services and Docker
+--> monolithic vs microservices?
+--> docker run
+--> Have few examples of Dockerfile and docker-compose
+--> https://www.interviewbit.com/docker-interview-questions/
+
+Kubernetes
+----------
+Architecture
+various services
+Ingress Vs LoadBalancer Vs API Gateway
+--> https://www.geeksforgeeks.org/kubernetes-interview-questions/
+
+Jenkins --> CI/CD
+-------
+--> maven
+--> jenkinsfile --> Have 2-3 examples handy
+--> GitOps --> Kubernetes Cluster
+  argoCD is one of the gitOps tool --> https://argo-cd.readthedocs.io/en/stable/getting_started/
+
+
+Monitoring tools
+----------------
+Prometheus and Grafana
+--> https://www.sevenmentor.com/interview-questions-on-prometheus-grafana-2024
+
+
+Terraform
+---------
+Blocks --> Resource, provider, provisioner
+Modules
+--> https://www.geeksforgeeks.org/terraform-interview-questions/
+
+
+Ansible
+--------
+adhoc commands, playbook, roles
+
+
+Databases
+----------
+Relational DB --> MySQL --> https://www.w3schools.com/MySQL/default.asp
+Non-relational DB --> MongoDB --> https://www.mongodb.com/resources/products/fundamentals/basics
+
+Tomcat --> https://www.baeldung.com/tomcat-deploy-war
+
+Shell-scripting --> https://www.geeksforgeeks.org/shell-script-examples/
+Python-scripting --> https://www.monterail.com/blog/python-task-automation-examples
+
+
+
