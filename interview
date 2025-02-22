@@ -5,3 +5,4 @@ GIT
 Micro-Services and Docker
 --> monolithic vs microservices?
 --> docker run
+--> Have few examples of Dockerfile and docker-compose
