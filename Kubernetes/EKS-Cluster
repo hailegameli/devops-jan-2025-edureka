@@ -9,7 +9,7 @@ apt install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
 
-aws configure --> get the details from IAM user
+AFTER DO AWS CONFIGURE --> get the details from IAM user
 
 
 2. kubectl --> command line interface for K8s, in general
