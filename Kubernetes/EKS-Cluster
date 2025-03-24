@@ -20,13 +20,14 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin
 
 3. EKSCTL --> command line interface for AWS EKS
-https://eksctl.io/installation/
+COPY THE URL AND PASTE IN  THE BROWSER TO COPY THE CMDS TO THE CLOUDSHELL---->>>   https://eksctl.io/installation/
 
 
+AFTER INSTALLING THE 3 CLI, CREATE THE CLUSTER WITH THE COMMAND BELOW
 commands
 --------
 
-eksctl create cluster --name=eksdemo1                          --> Master Node (HA) / Control Plane + 1 NodeGroup (2 nodes)
+eksctl create cluster --name=eksdemo1       --> Master Node (HA) / Control Plane + 1 NodeGroup (2 nodes)
 
 OR
 
