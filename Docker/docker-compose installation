@@ -4,3 +4,26 @@ $ chmod +x docker-compose-linux-x86_64
 $ sudo mv docker-compose-linux-x86_64 /usr/bin/docker-compose
 $ docker-compose --version
 Docker Compose version v2.24.1
+
+https://docs.docker.com/compose/support-and-feedback/samples-for-compose/
+
+
+docker-compose version
+    2  clear
+    3  mkdir project1
+    4  cd project1/
+    5  vi docker-compose.yaml
+    6  docker network ls
+    7  docker-compose up -d
+    8  docker ps
+    9  docker volume ls
+   10  docker exec -it 1d40590888d7 /bin/bash
+   11  docker ps
+   12  docker exec -it 2007b95dfda4 /bin/bash
+   13  docker-compose down
+   14  docker-compose up -d
+   15  docker ps
+   16  docker stats
+
+
+mysql -u <user-name> -p <password>
