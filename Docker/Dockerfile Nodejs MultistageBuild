@@ -1,0 +1,40 @@
+FROM node:20
+WORKDIR /server
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD [ "node", "server.js" ]
+
+WHEN YOU BUILD THIS AND THE IMAGE SIZE IS IN GB´S, USE THE MULTI STAGE BELOW!!!
+
+
+#Stage1
+FROM node:20 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+#stage2
+FROM node:18-alpine
+WORKDIR /app
+# --from=build: Refers to the previous stage labeled build (i.e., FROM node:20 AS build).
+# /app: This is the path inside the build stage container where your full app and dependencies are located.
+# ./: Refers to the current working directory in the final image, which is /app (from WORKDIR /app).
+# So this line effectively transfers the fully prepared application from the build container into the final lightweight production container.
+COPY --from=build /app ./
+#install only prod dependencies and omit development dependecies
+RUN npm install --omit=dev
+EXPOSE 3000
+CMD ["node", "server.js"]
+
+
+
+
+
+
+
+
+
+
