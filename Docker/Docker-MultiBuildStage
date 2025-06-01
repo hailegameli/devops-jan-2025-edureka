@@ -1,4 +1,13 @@
 <<<---MULTI BUILD STAGE FOR NODEJS---->>>
+FROM node:18-alpine 
+WORKDIR /app
+COPY package*.json ./
+RUN npm install 
+COPY . .
+EXPOSE 8080
+CMD ["node", "index.js"]
+
+-------------------------------------------
 # Stage 1: Build stage
 FROM node:18-alpine AS build
 WORKDIR /app
