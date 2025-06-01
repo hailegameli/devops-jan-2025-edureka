@@ -1,5 +1,5 @@
 <<<---MULTI BUILD STAGE FOR NODEJS---->>>
-FROM node:18-alpine 
+FROM node:18
 WORKDIR /app
 COPY package*.json ./
 RUN npm install 
@@ -18,6 +18,11 @@ COPY . .
 # Stage 2: Production image
 FROM node:18-alpine
 WORKDIR /app
-COPY --from=build /app ./
+COPY --from=build /app ./  
 EXPOSE 8080
 CMD ["node", "index.js"]
+---------------------------------------------
+# --from=build: Refers to the previous stage labeled build (i.e., FROM node:18-alpine AS build).
+# /app: This is the path inside the build stage container where your full app and dependencies are located.
+# ./: Refers to the current working directory in the final image, which is /app (from WORKDIR /app).
+# So this line effectively transfers the fully prepared application from the build container into the final lightweight production container.
