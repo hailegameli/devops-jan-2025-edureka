@@ -1,1 +1,162 @@
 
+  TOMCAT SERVER
+Step #1:Install OpenJDK on Ubuntu 22.04 LTS
+--> apt install fontconfig openjdk-17-jre
+
+To check and confirm, that Java has been installed successfully.
+--> java -version
+
+Step #2:Download Apache Tomcat on Ubuntu 22.04 LTS  
+You can get the latest version directly from the official webpage of Tomcat. So you can download from here. Copy the link address of tar.gz  
+--> wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.102/bin/apache-tomcat-9.0.102.tar.gz
+
+Step #3:Install Apache Tomcat on Ubuntu 22.04 LTS
+Extract the downloaded file in /opt directory
+Create a directory under /opt to extract files 
+--> sudo mkdir -p /opt/tomcat
+Extract the downloaded Tomcat Tar file into the created directory.
+--> sudo tar xzvf apache-tomcat-10.1.60.tar.gz -C /opt/tomcat --strip-components=1
+Create a dedicated user
+--->  sudo groupadd tomcat
+---> sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+
+Step #4:Give Tomcat user permissions
+Now let’s assign the permission of the folder to the user we have created above for it.
+--->  sudo chown -R tomcat: /opt/tomcat
+---->  sudo sh -c 'chmod +x /opt/tomcat/bin/*.sh'
+
+Step #5:Create a Systemd service file
+By default, we won’t have a Systemd unit file for Tomcat to run in the background and to easily stop, start and enable its services. So here, we are going to create
+Create Systemd unit file
+
+--->  sudo nano /etc/systemd/system/tomcat.service
+Paste the following block of code in it 
+
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+
+User=tomcat
+Group=tomcat
+
+Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"
+Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+Environment="CATALINA_HOME=/opt/tomcat"
+Environment="CATALINA_BASE=/opt/tomcat"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+
+Step #6:To start, Enable Tomcat service on Ubuntu 22.04
+Let’s enable and run the same, start tomcat service and enable tomcat service at system startup.
+---> sudo systemctl daemon-reload
+---> sudo systemctl start tomcat
+---> sudo systemctl enable tomcat
+To confirm everything is working normally, check the status of service:
+---> sudo systemctl status tomcat
+Step #7:Add Roles and Admin username and password
+---> sudo nano /opt/tomcat/conf/tomcat-users.xml
+At the end just before </tomcat-users> tag copy and paste the following lines.
+
+      <role rolename="manager-gui"/>
+      <role rolename="admin-gui"/>
+      <user username="admin" password="s3cret" roles="admin-gui,manager-gui"/>
+</tomcat-users>
+
+
+Add Roles and Admin username and password for Tomcat 9 to access app in the server
+
+<role rolename="manager-gui"/>
+<role rolename="admin-gui"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<role rolename="admin-script"/>
+<role rolename="manager-script"/>
+<user username="admin" password="s3cret" roles="admin-gui,manager-gui,manager-jmx,manager  status,admin-script,manager-script"/>
+</tomcat-users>
+Step #8:Enable Tomcat and Host Manager Remote access
+For Tomcat Manager’s remote access:
+
+Edit the Context file  
+---> sudo nano /opt/tomcat/webapps/manager/META-INF/context.xml
+
+In the file, scroll and go to the end and comment out the following block of text
+<!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+
+
+Restart Tomcat service:
+---> sudo systemctl restart tomcat
+
+Step #9:Access the Tomcat Web interface
+Change port number if JENKINS is installed on the same server 
+--→  nano /opt/tomcat/conf/server.xml 
+
+---> http://server-ip-addres:8083
+
+Step #10:Run catalina.sh file
+Go to the bin location in the tomcat folder. Run the below command.
+---> cd bin
+#This will start the tomcat server and it should be running on port number 8080.
+---> ./startup.sh 
+
+Make sure you open the port in the security group.
+
+Step #11:Clone app from github and Deploy War file in Tomcat
+Install maven and git
+---> apt install maven -y
+---> apt install git -y
+---> git clone https://github.com/saidevops8989/addressbook-project.git
+
+Step #12:Build war/jar file in this location
+---- >  cd addressbook-project/
+---- >  mvn compile
+----- > mvn package
+----->  cd target/
+---- > ls -l addressbook.war
+-rw-r--r--. 1  addressbook.war
+Be in the root@ip-172-31-9-199:~/addressbook-project/target# 
+----->  cp addressbook.war /opt/tomcat10/webapps/ 
+
+Step #13:Go to the browser and access the war file on browser 
+go the web browser and access server ip 8080### you will be seeing the addressbook
+You should be able to see the sample war file running in the tomcat server.
+If you are getting any errors, you can look at the logs for the tomcat servers. The logs are present in the logs folder under the tomcat directory.
+
+---> cd logs
+---> sudo nano catalina.out 
+We have covered Deploy war file in Tomcat.
+ 
+
+BUILDING USING DOCKERFILE
+after building the war.file
+---> Be in the root@ip-172-31-9-199:~ mv target/addressbook.war target/ROOT.war  
+--this makes you open the app in web browser without adding /addressbook
+
+vi Dockerfile
+FROM tomcat:9-jdk21
+
+RUN rm -rf /usr/local/tomcat/webapps/
+
+COPY target/*.war /usr/local/tomcat/webapps/
+
+ENV CONTEXT_PATH=addressbook
+
+EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
+
+buid your images and run the container
+
+
+
+
+
