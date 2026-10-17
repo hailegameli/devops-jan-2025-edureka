@@ -132,7 +132,7 @@ Step #12:Build war/jar file in this location
 ---- > ls -l addressbook.war
 -rw-r--r--. 1  addressbook.war
 Be in the root@ip-172-31-9-199:~/addressbook-project/target# 
------>  cp addressbook.war /opt/tomcat10/webapps/
+----->  cp addressbook.war /opt/tomcat10/webapps/ 
 
 Step #13:Go to the browser and access the war file on browser 
 go the web browser and access server ip 8080### you will be seeing the addressbook
@@ -143,6 +143,28 @@ If you are getting any errors, you can look at the logs for the tomcat servers. 
 ---> sudo nano catalina.out 
 We have covered Deploy war file in Tomcat.
  
+
+
+BUILDING USING DOCKERFILE
+after building the war.file
+---> Be in the root@ip-172-31-9-199:~ mv target/addressbook.war target/ROOT.war  
+--this makes you open the app in web browser without adding /addressbook
+
+vi Dockerfile
+FROM tomcat:9-jdk21
+
+RUN rm -rf /usr/local/tomcat/webapps/
+
+COPY target/*.war /usr/local/tomcat/webapps/
+
+ENV CONTEXT_PATH=addressbook
+
+EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
+
+buid your images and run the container
+
 
 
 
