@@ -1,0 +1,101 @@
+1. Create the shell script
+Create a file named docker-central-logs.sh:
+sudo nano /usr/local/bin/docker-central-logs.sh
+------------------------------------------------------
+
+#!/usr/bin/env bash
+
+# Centralized Docker journald log collector
+# Automatically discovers running containers.
+
+set -u
+
+LOG_DIR="/var/log/docker-log"
+LOG_FILE="${LOG_DIR}/combined.log"
+CHECK_INTERVAL=5
+
+declare -A WATCHED_PIDS=()
+
+# Create the centralized log directory.
+mkdir -p "$LOG_DIR"
+touch "$LOG_FILE"
+
+# This script must run as root.
+if [[ $EUID -ne 0 ]]; then
+    echo "Please run this script using sudo."
+    exit 1
+fi
+
+# Stop all journal followers when the script exits.
+cleanup() {
+    echo "Stopping Docker log collectors..."
+
+    for pid in "${WATCHED_PIDS[@]}"; do
+        kill "$pid" 2>/dev/null || true
+    done
+
+    wait 2>/dev/null || true
+}
+
+trap cleanup EXIT INT TERM
+
+echo "Docker centralized logging started."
+echo "Log file: $LOG_FILE"
+echo "Checking for containers every ${CHECK_INTERVAL} seconds."
+
+while true; do
+
+    # Discover all running containers using their full IDs.
+    while IFS= read -r container_id; do
+
+        [[ -z "$container_id" ]] && continue
+
+        # Start a journal follower if this container is not
+        # already being monitored.
+        if [[ -z "${WATCHED_PIDS[$container_id]+exists}" ]] ||
+           ! kill -0 "${WATCHED_PIDS[$container_id]}" 2>/dev/null; then
+
+            echo "[$(date -Is)] Starting log collector for $container_id" \
+                >> "$LOG_FILE"
+
+            journalctl \
+                --follow \
+                --since=now \
+                "CONTAINER_ID_FULL=$container_id" \
+                --output=short-iso \
+                --no-pager \
+                >> "$LOG_FILE" 2>> "${LOG_DIR}/collector-errors.log" &
+
+            WATCHED_PIDS["$container_id"]=$!
+        fi
+
+    done < <(docker ps --no-trunc --format '{{.ID}}')
+
+    # Check periodically for new containers.
+    sleep "$CHECK_INTERVAL"
+
+done
+-----------------------------------------------------------------------------------
+
+
+2. Make the script executable
+Run:sudo chmod +x /usr/local/bin/docker-central-logs.sh
+
+3. Run the script
+Start the collector: sudo /usr/local/bin/docker-central-logs.sh
+
+You should see:
+Docker centralized logging started.
+Log file: /var/log/docker-log/combined.log
+Checking for containers every 5 seconds.
+
+Leave this terminal running.
+
+4. View all collected logs
+Open another terminal and run: sudo tail -f /var/log/docker-log/combined.log
+
+
+
+
+
+
