@@ -1,6 +1,6 @@
   TOMCAT SERVER
 Step #1:Install OpenJDK on Ubuntu 22.04 LTS
---> apt install fontconfig openjdk-17-jre
+--> apt install fontconfig openjdk-21-jre
 
 To check and confirm, that Java has been installed successfully.
 --> java -version
