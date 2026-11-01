@@ -30,7 +30,7 @@ Create Systemd unit file
 
 --->  sudo nano /etc/systemd/system/tomcat.service
 Paste the following block of code in it 
-
+----------------------------------------------------------------------------------------------
 [Unit]
 Description=Apache Tomcat Web Application Container
 After=network.target
@@ -53,6 +53,8 @@ ExecStop=/opt/tomcat/bin/shutdown.sh
 
 [Install]
 WantedBy=multi-user.target
+
+----------------------------------------------------------------------------------------------------------------
 
 Step #6:To start, Enable Tomcat service on Ubuntu 22.04
 Let’s enable and run the same, start tomcat service and enable tomcat service at system startup.
